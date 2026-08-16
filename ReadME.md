@@ -1,7 +1,8 @@
 This is a Presence Based Alert System. 
 The project is designed to be used indoors with a common wifi connection.
 Ensure that both your PC and the microcontrollers are connected to the same wifi network.
-In the .ino files you can find the variables "WIFI_SSID" and "WIFI_PASS"
+In the .ino files you can find the variables "WIFI_SSID" and "WIFI_PASS". 
+
 In the audio and image titled files, you can find folders named: Person1, Person2, Person3. 
 Ensure you rename those files to the people that you would like enrolled into the system, accordingly.
 You can also add extra people into it by simply creating new folders for them.
