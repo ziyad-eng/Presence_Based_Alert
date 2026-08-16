@@ -1,4 +1,3 @@
-Read ME
 This is a Presence Based Alert System. 
 The project is designed to be used indoors with a common wifi connection.
 Ensure that both your PC and the microcontrollers are connected to the same wifi network.
