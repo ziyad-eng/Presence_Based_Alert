@@ -81,7 +81,7 @@ def classify_names_in_text(transcript_text):
     return list(detected_names)
 
 
-def handle_webhook(incoming):
+def create_queue(incoming):
 
     if isinstance(incoming, str):
         names_to_add = [incoming]
@@ -248,7 +248,8 @@ def burst():
     confirmed = [name for name, count in name_counts.items() if count >= BURST_MIN_COUNT]
 
     if confirmed: 
-        handle_webhook(confirmed)  #call this to notify to handle the process
+        create_queue(confirmed)  #call this to create the queue to be used in the playback. actually you can just pass the list directly and re-write the handle_wav_playback to check the lst to. 
+                                #this should work fie, but the other option exists
         print(f"Successfully notified server3: {confirmed}")
 
     elapsed = time.time() - start_time
