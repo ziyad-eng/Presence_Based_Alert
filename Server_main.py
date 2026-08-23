@@ -34,7 +34,7 @@ for name in TARGET_NAMES + ["Unclassified"]:
     os.makedirs(os.path.join(BASE_AUDIO_DIR, name), exist_ok=True)
 os.makedirs(BURSTS_DIR, exist_ok=True)
 
-# --- Face analysis model (loads once at startup) ---
+# --- Face analysis model (this will load the model at startup) ---
 face_model = FaceAnalysis(providers=["CUDAExecutionProvider", "CPUExecutionProvider"])
 face_model.prepare(ctx_id=0, det_size=(640, 640))
 name_queue = queue.Queue()
@@ -181,13 +181,12 @@ def identify(image_path, db, threshold=MATCH_THRESHOLD):
 def next_burst_dir():
     """Scan BURSTS_DIR for existing burst_NNN folders and return the next numbered path."""
     existing = [d for d in os.listdir(BURSTS_DIR) if os.path.isdir(os.path.join(BURSTS_DIR, d))]
-    numbers = []
     for d in existing:
         m = re.match(r"burst_(\d+)$", d)
         if m:
-            numbers.append(int(m.group(1)))
-    next_num = max(numbers, default=0) + 1
-    path2 = os.path.join(BURSTS_DIR, f"burst_{next_num:03d}")
+            os.rmdir(os.path.join(BURSTS_DIR, d))
+    num = 1
+    path2 = os.path.join(BURSTS_DIR, f"burst_{num:03d}")
     os.makedirs(path2)
     return path2
 
